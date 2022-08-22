@@ -69,7 +69,8 @@ async def showrole(ctx, role: discord.Role):
 			u.append(user.name)
 			i+=1
 	if i > 0:
-		await ctx.send("...\n" + "\n. ".join(u) + "\nAssigned **" + str(i) + "** users to role **" + str(role) + "**!")
+		u.sort()
+		await ctx.send("...\n" + "\n".join(u) + "\nAssigned **" + str(i) + "** users to role **" + str(role) + "**!")
 	else:
 		await ctx.send("Role **" + str(role) + "** is empty!")
 #
