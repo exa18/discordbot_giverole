@@ -13,7 +13,6 @@ intents.members = True
 load_dotenv()
 
 bot = commands.Bot(command_prefix='!r', intents=intents)
-#@commands.has_permissions(manage_roles=True)
 #
 #
 #	GIVE/ADD role to users
@@ -22,12 +21,16 @@ bot = commands.Bot(command_prefix='!r', intents=intents)
 @bot.command(name='+')
 async def giverole(ctx, role: discord.Role, *users: discord.Member):
 	i=0
+	u=[]
 	for user in users:
 		await user.add_roles(role)
-		await ctx.send("+ " + user.name)
+		u.append(user.name)
 		await asyncio.sleep(0)
 		i+=1
-	await ctx.send("Added **" + str(i) + "** users to role **" + str(role) + "**!")
+	if i >0:
+		await ctx.send("...\n" + ", ".join(u) + "\nAdded **" + str(i) + "** users to role **" + str(role) + "**!")
+	else:
+		await ctx.send("Role **" + str(role) + "** already given!")
 #
 #
 #	REMOVE role from users
@@ -40,13 +43,17 @@ async def removerole(ctx, role: discord.Role, *users: discord.Member):
 		users = bot.get_all_members()
 	
 	i=0
+	u=[]
 	for user in users:
 		if role in user.roles:
 			await user.remove_roles(role)
-			await ctx.send("- " + user.name)
+			u.append(user.name)
 			await asyncio.sleep(0)
 			i+=1
-	await ctx.send("Removed role **" + str(role) + "** from **" + str(i) + "** users!")
+	if i > 0:
+		await ctx.send("...\n" + ", ".join(u) + "\nRemoved role **" + str(role) + "** from **" + str(i) + "** users!")
+	else:
+		await ctx.send("Role **" + str(role) + "** already empty!")
 #
 #
 #	SHOW useres assigned to role
@@ -56,13 +63,13 @@ async def removerole(ctx, role: discord.Role, *users: discord.Member):
 async def showrole(ctx, role: discord.Role):
 	users = bot.get_all_members()
 	i=0
-	u = []
+	u=[]
 	for user in users:
 		if role in user.roles:
-			u.append(". " + user.name)
+			u.append(user.name)
 			i+=1
 	if i > 0:
-		await ctx.send("...\n" + "\n".join(u) + "\nAssigned **" + str(i) + "** users to role **" + str(role) + "**!")
+		await ctx.send("...\n" + "\n. ".join(u) + "\nAssigned **" + str(i) + "** users to role **" + str(role) + "**!")
 	else:
 		await ctx.send("Role **" + str(role) + "** is empty!")
 #
