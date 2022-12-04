@@ -14,7 +14,11 @@ intents.members = True
 load_dotenv()
 
 PREFIX = '!r'
-
+#
+bot = commands.Bot(command_prefix=PREFIX, intents=intents)
+#
+#	support
+#
 class WScont:
 	def __init__(self):
 		self.name = "Help: "+PREFIX+"?"
@@ -57,8 +61,6 @@ def grCheckTime():
 
 def grGetTimeStamp():
 	return datetime.datetime.now().timestamp()
-
-ws = WScont()
 #
 #
 #	Loop to update status
@@ -79,8 +81,8 @@ async def task_loop():
 #
 #	Start
 #
-bot = commands.Bot(command_prefix=PREFIX, intents=intents)
-
+ws = WScont()
+#
 @bot.event
 async def on_ready():
 	await bot.change_presence(activity=discord.Game(name=ws.name))
@@ -144,7 +146,9 @@ async def giverole(ctx, role: discord.Role, *users: discord.Member):
 			await ctx.send("...\n" + ", ".join(u) + "\nAdded **" + str(i) + "** users to role **" + str(role) + "**!")
 		else:
 			await ctx.send("Role **" + str(role) + "** already given!")
-
+	#
+	#	start WS counter
+	#
 	x=0
 	users = bot.get_all_members()
 	for user in users:
@@ -217,7 +221,7 @@ async def help(ctx):
 	+ PREFIX +"+ @ROLE -> updates game status if users change\n" \
 	+ PREFIX +"- @ROLE [@user1 @user2 ... @user11] -> will remove it\n" \
 	+ PREFIX +"s @ROLE -> show users assigned also current counter\n" \
-	+"\n\n**WS commands for started counter**\n" \
+	+"\n**WS commands for started counter**\n" \
 	+"...IF counter is set and time counter goes 0 then role will be removed from users\n" \
 	+ PREFIX +"name -> change game name\n" \
 	+ PREFIX +"time -> sets data&time to current (now)\n" \
