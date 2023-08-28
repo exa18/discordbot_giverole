@@ -9,8 +9,8 @@ sudo apt install -y python3-pip
 ```
 Install modules (second should be allready installed):
 ```
-pip install discord.py
-pip install python-dotenv
+pip install --upgrade pip
+pip install discord.py python-dotenv asyncio
 ```
 
 ### Install App settings [DEV](https://discord.com/developers/applications)
