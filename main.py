@@ -167,10 +167,11 @@ async def showrole(ctx, *roles: discord.Role):
 #
 @bot.command(name='?')
 async def help(ctx):
-	h = ("\n** **\n\n**Simple bot to give/remove ROLE** for selected users.\n\n" \
-	+ PREFIX +"+ @ROLE ... @user1 @user2 ... @user11 -> will give role to users \n" \
-	+ PREFIX +"- @ROLE ... [@user1 @user2 ... @user11] -> will remove it\n" \
-	+ PREFIX +"s @ROLE ... -> show users assigned also current counter\n" \
+	h = ("\n** **\n\n**Simple bot to give/remove ROLE** for selected users." \
+	+ " Argumets could be given in any order.\n\n--- ADD\n"
+	+ PREFIX +"+ @role (or more)... @user (or more) -> give role to users \n\n--- REMOVE\n" \
+	+ PREFIX +"- @role (or more)... [@user (or more)] -> remove role from all or selected users\n\n--- SHOW\n" \
+	+ PREFIX +"s @role (or more)... -> show users assigned to role\n\n" \
 	+ "\nEnjoy!\n"
 	)
 	await ctx.send(h)
